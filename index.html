@@ -3,15 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Test</title>
+    <title>⚡ Api Dark Node</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+        body {
+            background: url('https://files.catbox.moe/5o0hnu.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -220px;
+            width: 200px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.7);
+            transition: left 0.4s ease-in-out;
+            z-index: 1000;
+        }
+        .sidebar a {
+            display: block;
+            color: #ff0077;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 15px 0;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #00ffee;
+            text-shadow: 0px 0px 10px #00ffee;
+        }
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff0077;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px #ff0077;
+            transition: 0.3s;
+        }
+        .toggle-btn:hover {
+            background: #00ffee;
+            box-shadow: 0px 0px 15px #00ffee;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(20, 20, 20, 0.9);
+            box-shadow: 0px 0px 20px rgba(255, 0, 255, 0.7);
+        }
+        h1 {
+            font-size: 30px;
+            text-shadow: 0px 0px 10px #ff0077;
+        }
+        .neon-text {
+            color: #00ffee;
+            text-shadow: 0px 0px 10px #00ffee;
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .btn {
+            background: #ff0077;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0px 0px 10px #ff0077;
+        }
+        .btn:hover {
+            background: #00ffee;
+            box-shadow: 0px 0px 15px #00ffee;
+        }
+        .api-item {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.7);
+        }
+        .api-item button {
+            background: #00ffee;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff0077;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px #ff0077;
+            transition: 0.3s;
+        }
+        .music-btn:hover {
+            background: #00ffee;
+            box-shadow: 0px 0px 15px #00ffee;
+        }
+    </style>
 </head>
 <body>
-    <h1>اختبار API</h1>
-    <img id="profileImage" src="" alt="صورة الملف الشخصي">
+
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="showPage('home')">🏠 الرئيسية</a>
+        <a href="#" onclick="showPage('buy')">🛒 شراء السكريبت</a>
+        <a href="#" onclick="showPage('api')">🌐 API</a>
+        <a href="#" onclick="showPage('contact')">📩 تواصل معنا</a>
+    </div>
+
+    <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+
+    <div id="home" class="container page active">
+        <h1>✨ مرحبًا بك في <span class="neon-text">API Dark Node</span> ✨</h1>
+    </div>
+
+    <div id="buy" class="container page">
+        <h1>🍷 أسعار السكريبتات 🍷</h1>
+        <ul>
+            <li>⚜️ بوت عادي → 30 جنيه <a href="https://wa.me/201063808608"><button class="btn">💰 شراء</button></a></li>
+            <li>⚜️ بوت أزرار → 40 جنيه <a href="https://wa.me/201063808608"><button class="btn">💰 شراء</button></a></li>
+            <li>⚜️ بوت أزرار + أوامر → 65 جنيه <a href="https://wa.me/201063808608"><button class="btn">💰 شراء</button></a></li>
+            <li>⚜️ بوت ميكو → 100 جنيه <a href="https://wa.me/201063808608"><button class="btn">💰 شراء</button></a></li>
+            <li>⚜️ بوت ميكو V2 → 150 جنيه <a href="https://wa.me/201063808608"><button class="btn">💰 شراء</button></a></li>
+        </ul>
+    </div>
+
+    <div id="api" class="container page">
+        <h1>🌐 API</h1>
+        <div class="api-item">
+            <span>https://api.example.com/v1/data</span>
+            <button onclick="copyToClipboard('https://api.example.com/v1/data')">📋 نسخ</button>
+        </div>
+        <div class="api-item">
+            <span>https://api.example.com/v1/users</span>
+            <button onclick="copyToClipboard('https://api.example.com/v1/users')">📋 نسخ</button>
+        </div>
+    </div>
+
+    <div id="contact" class="container page">
+        <h1>📩 تواصل معنا</h1>
+        <a href="https://wa.me/201063808608"><button class="btn">💬 واتساب</button></a>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/yaq5lw.opus" type="audio/ogg">
+    </audio>
     
+    <div class="music-btn" onclick="toggleMusic()">🎵</div>
+
     <script>
-        const imageUrl = "https://by-tanjiro-owner.vercel.app/api/profile?name=Ahmed&level=5&exp=40&maxExp=100&bg=https://example.com/bg.png&avatar=https://example.com/avatar.jpg";
-        document.getElementById("profileImage").src = imageUrl;
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            sidebar.style.left = sidebar.style.left === "0px" ? "-220px" : "0px";
+        }
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            alert("✅ تم النسخ!");
+        }
+        function toggleMusic() {
+            let music = document.getElementById("bgMusic");
+            music.paused ? music.play() : music.pause();
+        }
     </script>
+
 </body>
 </html>
