@@ -43,7 +43,7 @@ app.get('/api/profile', async (req, res) => {
 
     // إضافة النصوص
     ctx.fillStyle = textColor;
-    ctx.font = 'bold 30px Tajawal';
+    ctx.font = 'bold 30px Cairo';
     ctx.fillText(`الاسم: ${name}`, 180, 70);
     ctx.fillText(`المستوى: ${level}`, 180, 120);
     ctx.fillText(`الخبرة: ${exp} / ${maxExp}`, 180, 170);
