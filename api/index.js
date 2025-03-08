@@ -1,69 +1,52 @@
-const { createCanvas, loadImage, registerFont } = require('@napi-rs/canvas');
 const express = require('express');
+const canvas = require('canvas');
 const app = express();
 
-// تحميل خط عربي مخصص
-registerFont('./fonts/Cairo-ExtraLight.ttf', { family: 'Cairo' });
-
 app.get('/api/profile', async (req, res) => {
-    const { name = 'User', level = 1, exp = 0, maxExp = 100, bg = '', avatar = '', textColor = '#fff', barColor = '#0f0' } = req.query;
-    const width = 800, height = 300;
-    const canvas = createCanvas(width, height);
-    const ctx = canvas.getContext('2d');
+    try {
+        console.log("🔄 طلب جديد إلى API");
+        console.log("📌 بيانات المستخدم:", req.query);
 
-    // تحميل الصورة الخلفية
-    if (bg) {
-        try {
-            const bgImage = await loadImage(bg);
-            ctx.drawImage(bgImage, 0, 0, width, height);
-        } catch (error) {
-            console.log('Failed to load background image:', error);
-            ctx.fillStyle = '#222';
-            ctx.fillRect(0, 0, width, height);
-        }
-    } else {
-        ctx.fillStyle = '#222';
-        ctx.fillRect(0, 0, width, height);
+        const { name = "User", level = 1, exp = 0, maxExp = 100, bg, avatar } = req.query;
+        
+        // تحميل الصورة الرمزية والخلفية
+        const bgImage = await canvas.loadImage(bg || 'https://via.placeholder.com/600x300');
+        const avatarImage = await canvas.loadImage(avatar || 'https://via.placeholder.com/100');
+
+        // إنشاء الصورة
+        const width = 600, height = 300;
+        const cnv = canvas.createCanvas(width, height);
+        const ctx = cnv.getContext('2d');
+
+        // رسم الخلفية
+        ctx.drawImage(bgImage, 0, 0, width, height);
+
+        // رسم الصورة الرمزية
+        const avatarSize = 100;
+        ctx.drawImage(avatarImage, 20, 20, avatarSize, avatarSize);
+
+        // رسم النصوص
+        ctx.font = "bold 24px Arial";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(`الاسم: ${decodeURIComponent(name)}`, 140, 50);
+        ctx.fillText(`المستوى: ${level}`, 140, 80);
+
+        // رسم شريط التقدم
+        const progressBarWidth = 400;
+        const progress = Math.min(exp / maxExp, 1);
+        ctx.fillStyle = "#444";
+        ctx.fillRect(140, 100, progressBarWidth, 20);
+        ctx.fillStyle = "#0f0";
+        ctx.fillRect(140, 100, progress * progressBarWidth, 20);
+
+        // إرسال الصورة
+        res.setHeader('Content-Type', 'image/png');
+        res.send(cnv.toBuffer());
+
+    } catch (error) {
+        console.error("❌ خطأ في API:", error);
+        res.status(500).send("حدث خطأ في API");
     }
-
-    // تحميل الصورة الرمزية
-    if (avatar) {
-        try {
-            const avatarImg = await loadImage(avatar);
-            ctx.beginPath();
-            ctx.arc(100, 100, 50, 0, Math.PI * 2);
-            ctx.closePath();
-            ctx.clip();
-            ctx.drawImage(avatarImg, 50, 50, 100, 100);
-            ctx.restore();
-        } catch (error) {
-            console.log('Failed to load avatar:', error);
-        }
-    }
-
-    // إضافة النصوص
-    ctx.fillStyle = textColor;
-    ctx.font = 'bold 30px Cairo';
-    ctx.fillText(`الاسم: ${name}`, 180, 70);
-    ctx.fillText(`المستوى: ${level}`, 180, 120);
-    ctx.fillText(`الخبرة: ${exp} / ${maxExp}`, 180, 170);
-
-    // شريط التقدم
-    const progressBarWidth = 600;
-    const progress = Math.min(exp / maxExp, 1);
-    ctx.fillStyle = '#555';
-    ctx.fillRect(50, 220, progressBarWidth, 30);
-    
-    // تأثير التدرج اللوني لشريط التقدم
-    const gradient = ctx.createLinearGradient(50, 220, 50 + progressBarWidth, 250);
-    gradient.addColorStop(0, barColor);
-    gradient.addColorStop(1, '#00ff88');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(50, 220, progressBarWidth * progress, 30);
-
-    // إخراج الصورة بصيغة مضغوطة
-    res.setHeader('Content-Type', 'image/jpeg');
-    canvas.createJPEGStream({ quality: 0.8 }).pipe(res);
 });
 
 module.exports = app;
