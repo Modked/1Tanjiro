@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // تحميل خط عربي مخصص
-registerFont('./fonts/Tajawal-Bold.ttf', { family: 'Tajawal' });
+registerFont('./fonts/Cairo-ExtraLight.ttf', { family: 'Cairo' });
 
 app.get('/api/profile', async (req, res) => {
     const { name = 'User', level = 1, exp = 0, maxExp = 100, bg = '', avatar = '', textColor = '#fff', barColor = '#0f0' } = req.query;
