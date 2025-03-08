@@ -10,8 +10,8 @@ app.get('/api/profile', async (req, res) => {
         const { name = "User", level = 1, exp = 0, maxExp = 100, bg, avatar } = req.query;
         
         // تحميل الصورة الرمزية والخلفية
-        const bgImage = await canvas.loadImage(bg || 'https://via.placeholder.com/600x300');
-        const avatarImage = await canvas.loadImage(avatar || 'https://via.placeholder.com/100');
+        const bgImage = await canvas.loadImage(bg || 'https://files.catbox.moe/uh9znr.png/600x300');
+        const avatarImage = await canvas.loadImage(avatar || 'https://files.catbox.moe/sfzqit.png/100');
 
         // إنشاء الصورة
         const width = 600, height = 300;
