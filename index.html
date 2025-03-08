@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+</head>
+<body>
+    <h1>اختبار API</h1>
+    <img id="profileImage" src="" alt="صورة الملف الشخصي">
+    
+    <script>
+        const imageUrl = "https://by-tanjiro-owner.vercel.app/api/profile?name=Ahmed&level=5&exp=40&maxExp=100&bg=https://example.com/bg.png&avatar=https://example.com/avatar.jpg";
+        document.getElementById("profileImage").src = imageUrl;
+    </script>
+</body>
+</html>
