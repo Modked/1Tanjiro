@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة المستخدم</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎨 إنشاء بطاقة المستخدم</h1>
+    <input type="text" id="username" placeholder="اسم المستخدم" value="Ahmed">
+    <input type="number" id="level" placeholder="المستوى" value="5">
+    <input type="number" id="exp" placeholder="الخبرة" value="40">
+    <input type="number" id="maxExp" placeholder="الحد الأقصى للخبرة" value="100">
+    <input type="text" id="bg" placeholder="رابط الخلفية" value="https://example.com/bg.png">
+    <input type="text" id="avatar" placeholder="رابط الصورة الرمزية" value="https://example.com/avatar.jpg">
+    <br>
+    <button onclick="generateImage()">🔄 تحديث البطاقة</button>
+    
+    <h2>📸 صورة البطاقة:</h2>
+    <img id="profileImage" src="" alt="بطاقة المستخدم">
+
+    <script>
+        function generateImage() {
+            const name = encodeURIComponent(document.getElementById("username").value);
+            const level = document.getElementById("level").value;
+            const exp = document.getElementById("exp").value;
+            const maxExp = document.getElementById("maxExp").value;
+            const bg = encodeURIComponent(document.getElementById("bg").value);
+            const avatar = encodeURIComponent(document.getElementById("avatar").value);
+
+            const apiUrl = `/api/profile?name=${name}&level=${level}&exp=${exp}&maxExp=${maxExp}&bg=${bg}&avatar=${avatar}`;
+            document.getElementById("profileImage").src = apiUrl;
+        }
+
+        // تحديث الصورة عند تحميل الصفحة
+        generateImage();
+    </script>
+
+</body>
+</html>
